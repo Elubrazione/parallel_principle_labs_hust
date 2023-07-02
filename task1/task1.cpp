@@ -71,6 +71,7 @@ int main() {
   double end_time = omp_get_wtime();
 
   // 保存结果
+  std::cout << "Using OpenMp (#pragma omp parallel for)" << std::endl;
   saveMatrixToFile(C, dim, filenameC);
   std::cout << "Execution time: " << end_time - start_time << " s" << std::endl;
 
