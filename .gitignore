@@ -1,3 +1,4 @@
 *.txt
 *.exe
 /.vscode
+/task2/*.txt
