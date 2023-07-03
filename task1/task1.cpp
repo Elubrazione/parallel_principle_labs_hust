@@ -35,7 +35,6 @@ void matrix_multiply_block(int A[], int B[], int C[], int dim) {
 
         // 在当前块内进行矩阵乘法计算
         for (int ii = i; ii < i_end; ++ii) {
-          #pragma omp simd
           for (int jj = j; jj < j_end; ++jj) {
             for (int kk = k; kk < k_end; ++kk) {
               C[ii * dim + jj] += A[ii * dim + kk] * B[kk * dim + jj];
@@ -78,11 +77,11 @@ void saveMatrixToFile(const int *matrix, int dim, const std::string& filename) {
 
 
 int main() {
-  int dim = 1000;
+  int dim = 4000;
 
-  std::string filenameA = "./matrixA.txt";
-  std::string filenameB = "./matrixB.txt";
-  std::string filenameC = "./matrixC.txt";
+  std::string filenameA = "./4k_matrixA.txt";
+  std::string filenameB = "./4k_matrixB.txt";
+  std::string filenameC = "./4k_matrixC.txt";
 
   int *A = (int *)malloc(dim * dim * sizeof(int));
   int *B = (int *)malloc(dim * dim * sizeof(int));
@@ -96,15 +95,16 @@ int main() {
 
   // 进行矩阵乘法
   double start_time = omp_get_wtime();
-  for (int i = 0; i < 10; i++)
+  for (int i = 0; i < 10; i++) {
     matrix_multiply_block(A, B, C, dim);
-  // matrix_multiply(A, B, C, dim);
+    // matrix_multiply(A, B, C, dim);
+  }
   double end_time = omp_get_wtime();
 
   // 保存结果
   // std::cout << "Origin Mode" << std::endl;
   // std::cout << "Using OpenMp (#pragma omp parallel for)" << std::endl;
-  std::cout << "Using OpenMp and Blocks With SIMD" << std::endl;
+  std::cout << "Using OpenMp and Blocks-32" << std::endl;
   saveMatrixToFile(C, dim, filenameC);
   std::cout << "Execution time: " << end_time - start_time << " s" << std::endl;
 
