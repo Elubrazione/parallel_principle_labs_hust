@@ -77,11 +77,11 @@ void saveMatrixToFile(const int *matrix, int dim, const std::string& filename) {
 
 
 int main() {
-  int dim = 4000;
+  int dim = 4500;
 
-  std::string filenameA = "./4k_matrixA.txt";
-  std::string filenameB = "./4k_matrixB.txt";
-  std::string filenameC = "./4k_matrixC.txt";
+  std::string filenameA = "./4.5k_matrixA.txt";
+  std::string filenameB = "./4.5k_matrixB.txt";
+  std::string filenameC = "./4.5k_matrixC.txt";
 
   int *A = (int *)malloc(dim * dim * sizeof(int));
   int *B = (int *)malloc(dim * dim * sizeof(int));
